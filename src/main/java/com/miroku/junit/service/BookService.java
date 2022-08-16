@@ -1,6 +1,7 @@
 package com.miroku.junit.service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -35,6 +36,14 @@ public class BookService {
     }
 
     // 3. 책한건보기
+    public BookRespDto 책한건보기(Long id) {
+        Optional<Book> bookPS = bookRepository.findById(id);
+        if (bookPS.isPresent()) {
+            return new BookRespDto().toDto(bookPS.get());
+        } else {
+            throw new RuntimeException("해당 아이디를 찾을 수 없습니다.");
+        }
+    }
 
     // 4. 책삭제
 
