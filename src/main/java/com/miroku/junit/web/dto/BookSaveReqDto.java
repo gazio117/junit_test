@@ -2,8 +2,10 @@ package com.miroku.junit.web.dto;
 
 import com.miroku.junit.domain.Book;
 
+import lombok.Getter;
 import lombok.Setter;
 
+@Getter
 @Setter
 public class BookSaveReqDto {
     private String title;
