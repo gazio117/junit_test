@@ -78,11 +78,11 @@ public class BookServiceTest {
     @Test
     public void 책한건보기_테스트() {
         // given
+        
+        //stub
         Long id = 1L;
         Book book = new Book(1L, "title", "author");
         Optional<Book> bookOP = Optional.of(book);
-
-        //stub
         when(bookRepository.findById(id)).thenReturn(bookOP);
 
         //when
@@ -93,4 +93,27 @@ public class BookServiceTest {
         assertThat(bookRespDto.getAuthor()).isEqualTo(book.getAuthor());
 
     }
+    
+    @Test
+    public void 책수정하기_테스트() {
+        // given
+        Long id = 1L;
+        BookSaveReqDto dto = new BookSaveReqDto();
+        dto.setTitle("변경타이틀");
+        dto.setAuthor("변경작성자");
+        
+        // stub
+        Book book = new Book(1L, "원작타이틀", "원작작성자");
+        Optional<Book> bookOP = Optional.of(book);
+        when(bookRepository.findById(id)).thenReturn(bookOP);
+
+        //when
+        BookRespDto bookRespDto =  bookService.책수정하기(id, dto);
+
+        //then
+        assertThat(bookRespDto.getTitle()).isEqualTo(dto.getTitle());
+        assertThat(bookRespDto.getAuthor()).isEqualTo(dto.getAuthor());
+
+    }
+
 }
