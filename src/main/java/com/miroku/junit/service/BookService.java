@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.miroku.junit.domain.Book;
 import com.miroku.junit.domain.BookRepository;
-import com.miroku.junit.web.dto.BookRespDto;
-import com.miroku.junit.web.dto.BookSaveReqDto;
+import com.miroku.junit.web.dto.request.BookSaveReqDto;
+import com.miroku.junit.web.dto.response.BookRespDto;
 
 import lombok.RequiredArgsConstructor;
 

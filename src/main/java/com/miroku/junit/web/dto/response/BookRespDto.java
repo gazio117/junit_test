@@ -1,4 +1,4 @@
-package com.miroku.junit.web.dto;
+package com.miroku.junit.web.dto.response;
 
 import com.miroku.junit.domain.Book;
 

@@ -19,8 +19,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.miroku.junit.domain.Book;
 import com.miroku.junit.domain.BookRepository;
 import com.miroku.junit.util.MailSender;
-import com.miroku.junit.web.dto.BookRespDto;
-import com.miroku.junit.web.dto.BookSaveReqDto;
+import com.miroku.junit.web.dto.request.BookSaveReqDto;
+import com.miroku.junit.web.dto.response.BookRespDto;
 
 @ExtendWith(MockitoExtension.class)
 public class BookServiceTest {

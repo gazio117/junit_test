@@ -6,7 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.miroku.junit.web.dto.BookRespDto;
+import com.miroku.junit.web.dto.response.BookRespDto;
 
 import lombok.Builder;
 import lombok.Getter;
