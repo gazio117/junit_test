@@ -20,6 +20,7 @@ import com.miroku.junit.domain.Book;
 import com.miroku.junit.domain.BookRepository;
 import com.miroku.junit.util.MailSender;
 import com.miroku.junit.web.dto.request.BookSaveReqDto;
+import com.miroku.junit.web.dto.response.BookListRespDto;
 import com.miroku.junit.web.dto.response.BookRespDto;
 
 @ExtendWith(MockitoExtension.class)
@@ -66,13 +67,13 @@ public class BookServiceTest {
         when(bookRepository.findAll()).thenReturn(books);
 
         //when
-        List<BookRespDto> dtos = bookService.책목록보기();
+        BookListRespDto dtos = bookService.책목록보기();
 
         //then
-        assertThat(dtos.get(0).getTitle()).isEqualTo("1.title");
-        assertThat(dtos.get(0).getAuthor()).isEqualTo("1.author");
-        assertThat(dtos.get(1).getTitle()).isEqualTo("2.title");
-        assertThat(dtos.get(1).getAuthor()).isEqualTo("2.author");
+        assertThat(dtos.getItems().get(0).getTitle()).isEqualTo("1.title");
+        assertThat(dtos.getItems().get(0).getAuthor()).isEqualTo("1.author");
+        assertThat(dtos.getItems().get(1).getTitle()).isEqualTo("2.title");
+        assertThat(dtos.getItems().get(1).getAuthor()).isEqualTo("2.author");
     }
 
     @Test
