@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -61,8 +62,10 @@ public class BookApiController {
     }
     
     // 4. 책삭제
-    public ResponseEntity<?> deleteBook() {
-        return null;
+    @DeleteMapping("api/v1/book/{id}")
+    public ResponseEntity<?> deleteBook(@PathVariable Long id) {
+        bookService.책삭제하기(id);
+        return new ResponseEntity<>(CMRespDto.builder().code(1).msg("글 삭제 성공").build(), HttpStatus.OK);
     }
 
     // 5. 책수정
