@@ -2,13 +2,13 @@ package com.miroku.junit.util;
 
 import org.springframework.stereotype.Component;
 
-@Component
-public class MailSenderStub implements MailSender{
+// @Component
+// public class MailSenderStub implements MailSender{
 
-    @Override
-    public boolean send() {
+//     @Override
+//     public boolean send() {
         
-        return false;
-    }
+//         return false;
+//     }
     
-}
+// }
