@@ -88,8 +88,6 @@ public class BookApiControllerTest {
         HttpEntity<String> request = new HttpEntity<String>(null, headers);
         ResponseEntity<String> response = rt.exchange("/api/v1/book", HttpMethod.GET, request, String.class);
 
-        System.out.println(response.getBody());
-
         //then
         DocumentContext dc = JsonPath.parse(response.getBody());
         Integer code = dc.read("$.code");
@@ -97,6 +95,44 @@ public class BookApiControllerTest {
 
         assertThat(code).isEqualTo(1);
         assertThat(title).isEqualTo("junit5");
+
+    }
+
+    @Sql("classpath:db/tableInit.sql")  // id로 검증시 autoIncrement 로 인한 오류를 방지 하기 위해 테이블 재생성..
+    @Test
+    public void getBookOne_test() {
+        //given 
+        Integer id = 1;
+
+        //when
+        HttpEntity<String> request = new HttpEntity<String>(null, headers);
+        ResponseEntity<String> response = rt.exchange("/api/v1/book/" + id, HttpMethod.GET, request, String.class);
+
+        //then
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        Integer code = dc.read("$.code");
+        String title = dc.read("$.body.title");
+
+        assertThat(code).isEqualTo(1);
+        assertThat(title).isEqualTo("junit5");
+    }
+
+    @Sql("classpath:db/tableInit.sql")  // id로 검증시 autoIncrement 로 인한 오류를 방지 하기 위해 테이블 재생성..
+    @Test
+    public void deleteBook_test() {
+        //given
+        Integer id = 1;
+
+        //when
+        HttpEntity<String> request = new HttpEntity<String>(null, headers);
+        ResponseEntity<String> response = rt.exchange("/api/v1/book/" + id, HttpMethod.DELETE, request, String.class);
+
+        //then
+        int resultStatus = response.getStatusCode().value();
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        Integer code = dc.read("$.code");
+        assertThat(code).isEqualTo(1);
+        assertThat(resultStatus).isEqualTo(200);
 
     }
 }
