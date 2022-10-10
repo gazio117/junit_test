@@ -1,6 +1,6 @@
 package com.miroku.junit.service;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -8,13 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.assertj.core.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.miroku.junit.domain.Book;
 import com.miroku.junit.domain.BookRepository;
@@ -23,6 +22,7 @@ import com.miroku.junit.web.dto.request.BookSaveReqDto;
 import com.miroku.junit.web.dto.response.BookListRespDto;
 import com.miroku.junit.web.dto.response.BookRespDto;
 
+@ActiveProfiles("dev")
 @ExtendWith(MockitoExtension.class)
 public class BookServiceTest {
     

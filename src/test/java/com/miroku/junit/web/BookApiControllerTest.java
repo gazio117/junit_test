@@ -12,6 +12,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -24,7 +25,7 @@ import com.miroku.junit.web.dto.request.BookSaveReqDto;
 
 import static org.assertj.core.api.Assertions.*;
 
-
+@ActiveProfiles("dev")
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class BookApiControllerTest {
     
@@ -135,4 +136,28 @@ public class BookApiControllerTest {
         assertThat(resultStatus).isEqualTo(200);
 
     }
+
+    @Sql("classpath:db/tableInit.sql")  // id로 검증시 autoIncrement 로 인한 오류를 방지 하기 위해 테이블 재생성..
+    @Test
+    public void updateBook_test() throws JsonProcessingException {
+        //given
+        Integer id = 1;
+        BookSaveReqDto bookSaveReqDto = new BookSaveReqDto();
+        bookSaveReqDto.setTitle("spring");
+        bookSaveReqDto.setAuthor("테스트");
+        String body = mapper.writeValueAsString(bookSaveReqDto);
+
+        //when
+        HttpEntity<String> request = new HttpEntity<String>(body, headers);
+        ResponseEntity<String> response = rt.exchange("/api/v1/book/" + id, HttpMethod.PUT, request, String.class);
+        System.out.println(response.getBody());
+
+        //then
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        Integer code = dc.read("$.code");
+        String title = dc.read("$.body.title");
+        assertThat(code).isEqualTo(1);
+        assertThat(title).isEqualTo("spring");
+    }
+
 }
